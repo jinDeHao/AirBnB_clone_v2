@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# make ur web server works
 dpkg -l | grep nginx > /dev/null 2>&1 || sudo apt -y update && sudo apt -y upgrade && sudo apt -y install nginx
 ls /data/web_static/releases/test/ > /dev/null 2>&1 || sudo mkdir /data/web_static/releases/test/
 ls /data/web_static/shared/ > /dev/null 2>&1 || sudo mkdir /data/web_static/shared/
