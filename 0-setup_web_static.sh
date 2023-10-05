@@ -4,14 +4,11 @@ dpkg -l | grep nginx > /dev/null 2>&1 || (sudo apt -y update && sudo apt -y upgr
 ls /data/web_static/releases/test/ > /dev/null 2>&1 || sudo mkdir -p /data/web_static/releases/test/
 ls /data/web_static/shared/ > /dev/null 2>&1 || sudo mkdir -p /data/web_static/shared/
 
+sudo echo -e "<html>\n\t<head>\n\t</head>\n\t<body>\n\t\tHolberton School\n\t</body>\n</html>" > /data/web_static/releases/test/index.html
+
+sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
+
 sudo chown -R ubuntu:ubuntu /data/
-sudo chgrp -R ubuntu /data/
-
-echo -e "<html>\n\t<head>\n\t</head>\n\t<body>\n\t\tHolberton School\n\t</body>\n</html>" > /data/web_static/releases/test/index.html
-
-ls /data/web_static/current > /dev/null 2>&1 && sudo rm -r /data/web_static/current
-sudo ln -s /data/web_static/releases/test/ /data/web_static/current
-
 
 sudo sed -i '/server_name _;/a \\n\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}\n' /etc/nginx/sites-available/default
 
