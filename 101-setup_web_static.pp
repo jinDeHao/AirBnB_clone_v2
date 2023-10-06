@@ -1,63 +1,29 @@
 # puppet to config the server
 exec { 'update server':
-  command => 'sudo apt -y update',
-  path    => ['/bin', '/usr/bin', '/usr/sbin'],
-  unless  => 'dpkg -l | grep -q nginx',
+  command => '/usr/bin/apt -y update',
 }
-
-exec { 'upgrade server':
-  command => 'sudo apt -y upgrade',
-  path    => ['/bin', '/usr/bin', '/usr/sbin'],
-  unless  => 'dpkg -l | grep -q nginx',
-}
-
 package { 'nginx':
   ensure => installed,
 }
-
-file { '/data/web_static/releases/test/':
-  ensure => 'directory',
+exec { 'update server':
+  command => '/usr/bin/mkdir -p /data/web_static/releases/test/',
 }
-
-file { '/data/web_static/shared/':
-  ensure => 'directory',
+exec { 'update server':
+  command => '/usr/bin/mkdir -p /data/web_static/shared/',
 }
-
-file { '/data/web_static/releases/test/index.html':
-  ensure  => 'file',
-  content => '
-<html>
-  <head>
-  </head>
-  <body>
-    Holberton School
-  </body>
-</html>
-',
+exec { 'update server':
+  command => '/usr/bin/echo -e "<html>\n\t<head>\n\t</head>\n\t<body>\n\t\tHolberton School\n\t</body>\n</html>" | sudo /usr/bin/tee /data/web_static/releases/test/index.html',
 }
-
-file { '/data/web_static/current':
-  ensure => link,
-  target => '/data/web_static/releases/test/',
+exec { 'update server':
+  command => '/usr/bin/ln -sf /data/web_static/releases/test/ /data/web_static/current',
 }
-
-exec { 'change owner':
-  command => 'sudo chown -R ubuntu:ubuntu /data/',
-  path    => ['/bin', '/usr/bin', '/usr/sbin'],
+exec { 'update server':
+  command => '/usr/bin/chown -R ubuntu:ubuntu /data/',
 }
-
-file_line { 'add custom header':
-  ensure => present,
-  path   => '/etc/nginx/sites-available/default',
-  after  => 'server_name _;',
-  line   => '
-    location /hbnb_static {
-        alias /data/web_static/current/;
-        # made by omar Id hmaid
-    }',
+exec { 'update server':
+  command => 'sudo sed -i "/server_name _;/a \\n\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}\n" /etc/nginx/sites-available/default',
+  provider => shell,
 }
-
-exec { 'nginx':
-  command => 'sudo service nginx restart',
-  path    => ['/bin', '/usr/bin', '/usr/sbin'],
+exec { 'update server':
+  command => '/usr/bin/service nginx restart',
 }
