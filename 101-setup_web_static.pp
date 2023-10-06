@@ -1,20 +1,17 @@
-# custom header using puppet
+# prepare a webstatic
 
 exec { 'update server':
   command  => 'sudo apt -y update',
   path     => ['/bin', '/usr/bin', '/usr/sbin'],
-  unless  => 'dpkg -l | grep -q nginx',
 }
 ->
 exec { 'upgrade server':
   command  => 'sudo apt -y upgrade',
   path    => ['/bin', '/usr/bin', '/usr/sbin'],
-  unless  => 'dpkg -l | grep -q nginx',
 }
 ->
 package { 'nginx':
   ensure   => installed,
-  unless  => 'dpkg -l | grep -q nginx',
 }
 ->
 file { '/data':
