@@ -33,6 +33,7 @@ def cIsFun(text):
     return "C {}".format(makeSpaces(text))
 
 
+@app.route("/python", strict_slashes=False)
 @app.route("/python/<text>", strict_slashes=False)
 def pyIsFun(text="is cool"):
     """hbnb returned"""
