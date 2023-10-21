@@ -47,9 +47,15 @@ class DBStorage:
                     key = "{}.{}".format(obj.__class__.__name__, obj.id)
                     objs[key] = obj
         else:
-            for obj in self.__session.query(classes[cls]).all():
-                key = "{}.{}".format(obj.__class__.__name__, obj.id)
-                objs[key] = obj
+            if (cls == "State"):
+                for obj in self.__session.query(classes["State\
+"]).order_by(classes[cls].name.asc()).all():
+                    key = "{}.{}".format(obj.__class__.__name__, obj.id)
+                    objs[key] = obj
+            else:
+                for obj in self.__session.query(classes[cls]).all():
+                    key = "{}.{}".format(obj.__class__.__name__, obj.id)
+                    objs[key] = obj
         return objs
 
     def new(self, obj):
