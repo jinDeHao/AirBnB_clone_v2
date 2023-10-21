@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """run flask server"""
-from flask import Flask
+from flask import Flask, render_template
 app = Flask(__name__)
 
 
@@ -48,13 +48,7 @@ def integer(n):
 @app.route("/number_template/<int:n>", strict_slashes=False)
 def integer_tmp(n):
     """hbnb returned"""
-    return "<!DOCTYPE html>\n<HTML lang=\"en\">\n\t\
-<HEAD>\n\t\t\
-<TITLE>HBNB</TITLE>\n\t\
-</HEAD>\n\t\
-<BODY>\n\t\t\
-<H1>Number: {}</H1>\n\t\
-</BODY>\n</HTML>".format(n)
+    return render_template('5-number.html', n=n)
 
 
 if __name__ == "__main__":
