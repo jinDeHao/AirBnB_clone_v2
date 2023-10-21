@@ -23,7 +23,7 @@ class DBStorage:
 
     def __init__(self):
         """
-        DBStorage class instances 
+        DBStorage class instances
         """
         db_url = "mysql+mysqldb://{}:{}@{}/{}".format(
             os.getenv("HBNB_MYSQL_USER"),
@@ -80,4 +80,7 @@ class DBStorage:
         self.__session = Session()
 
     def close(self):
+        """
+        close session
+        """
         self.__session.close()
