@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """run flask server"""
-from flask import Flask, redirect, url_for
+from flask import Flask
 app = Flask(__name__)
 
 
