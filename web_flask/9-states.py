@@ -5,12 +5,6 @@ from models import storage
 app = Flask(__name__)
 
 
-def sortdict(dictionary):
-    diction = {}
-    for i in dictionary:
-        diction[i] = dictionary[i]
-
-
 @app.route("/states", strict_slashes=False)
 def states():
     """states returned"""
