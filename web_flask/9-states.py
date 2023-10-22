@@ -19,7 +19,6 @@ def id_state(id):
     # if "State.{}".format(id) not in states:
     #     return render_template('9-states.html')
     state = storage.all("State").get("State.{}".format(id))
-    print(state)
     return render_template('9-states.html\
 ', state=state, states=None)
 
