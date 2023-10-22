@@ -9,7 +9,7 @@ from datetime import datetime
 env.hosts = ['52.86.89.214', '52.3.254.204']
 
 
-@runs_once
+@task
 def do_pack():
     """Generates a .tgz archive from the contents of the web_static folder"""
 
