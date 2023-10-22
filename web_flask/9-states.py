@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route("/states", strict_slashes=False)
 def states():
     """states returned"""
-    return render_template('9-states.html', states=storage.all("State"))
+    return render_template('9-states.html', states=storage.all("State"), cities=None)
 
 
 @app.route("/states/<id>", strict_slashes=False)
@@ -18,12 +18,8 @@ def id_state(id):
     if "State.{}".format(id) not in states:
         return render_template('9-states.html')
     state = states["State.{}".format(id)]
-    cities_list = []
-    cities_list = sorted(
-                            state.cities, key=lambda city: city.name
-                            )
     return render_template('9-states.html\
-', cities=cities_list, state=state)
+', state=state, states=None)
 
 
 @app.teardown_appcontext
