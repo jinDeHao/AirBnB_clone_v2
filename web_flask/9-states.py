@@ -29,7 +29,7 @@ def id_state(id):
                             state.cities, key=lambda city: city.name
                             )
     return render_template('9-states.html\
-', cities=cities_list)
+', cities=cities_list, state=state)
 
 
 @app.teardown_appcontext
