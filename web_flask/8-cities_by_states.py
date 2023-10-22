@@ -20,8 +20,14 @@ def states():
 @app.route("/cities_by_states", strict_slashes=False)
 def cities_state():
     """states returned"""
+    states = storage.all("State")
+    cities_dict = {}
+    for state in states.values():
+        cities_dict[state.name] = sorted(
+                                state.cities, key=lambda city: city.name
+                                )
     return render_template('8-cities_by_states.html\
-', states=storage.all("State"))
+', states=states, cities=cities_dict)
 
 
 @app.teardown_appcontext
